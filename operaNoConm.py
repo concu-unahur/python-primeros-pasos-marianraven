@@ -7,17 +7,23 @@ logging.basicConfig(format='%(asctime)s.%(msecs)03d [%(threadName)s] - %(message
 lock= threading.Lock()
 numero=0
 
+semaphoro= threading.Semaphore(3)
+semaphoro.acquire()
+logging.info(f'estamos corriendo semaforo 1')
+semaphoro.acquire()
+logging.info(f'estamos corriendo semaforo 2')
+
 def agregarUno():
     global numero
-    global lock
-    lock.acquire()
+    global semaphoro
+    semaphoro.acquire()
     try:
          numero+=1
          logging.info(f'numero ={numero}')
          logging.info(f'suma')
     finally:
          logging.info(f' ahora numero es igual a = {numero}')
-         lock.release()
+         semaphoro.release()
    
 
 
@@ -56,9 +62,8 @@ t3.start()
 t1.start()
 t2.start()
 
-t2.join()
-t3.join()
-t1.join()
+
+
 logging.info({numero})
 
 

@@ -12,6 +12,8 @@ def dormir():
 def dormir2(seg)
     time.sleep(seg)
     
+dormir2(1)
+    
 contador = Contador()
 contador.iniciar()
 
